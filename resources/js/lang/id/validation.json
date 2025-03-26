@@ -1,0 +1,8 @@
+{
+    "required": "{attribute} wajib diisi.",
+    "email": "{attribute} harus berupa alamat email yang valid.",
+    "min": "{attribute} harus terdiri dari minimal {min} karakter.",
+    "max": "{attribute} tidak boleh lebih dari {max} karakter.",
+    "unique": "{attribute} sudah digunakan.",
+    "password_mismatch": "Konfirmasi kata sandi tidak cocok."
+}

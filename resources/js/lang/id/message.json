@@ -1,0 +1,14 @@
+{
+    "success_login": "Login berhasil! Selamat datang kembali!",
+    "error_login": "Login gagal! Silakan periksa email dan kata sandi Anda",
+    "error_input": "Silakan perbaiki kesalahan",
+    "error_server": "Terjadi kesalahan saat memproses permintaan Anda. Silakan coba lagi nanti",
+    "success_input": "Data berhasil disimpan",
+    "delete_confirm": "Apakah Anda yakin ingin menghapus data ini?",
+    "delete_confirm_title": "Konfirmasi Penghapusan",
+    "delete_success": "Data berhasil dihapus",
+    "delete_error": "Terjadi kesalahan saat menghapus data. Silakan coba lagi nanti",
+    "delete_cancel": "Penghapusan dibatalkan",
+    "success_save": "Data berhasil disimpan",
+    "product_out_of_stock": "Stok habis! Silakan pilih produk lain"
+}

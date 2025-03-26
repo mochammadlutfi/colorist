@@ -1,0 +1,24 @@
+{
+    "general" : {
+        "app_name" : "Nama Aplikasi",
+        "company_name" : "Nama Perusahaan",
+        "company_email" : "Email Perusahaan",
+        "company_phone" : "Telepon Perusahaan",
+        "company_address" : "Alamat Perusahaan",
+        "default_branch" : "Cabang",
+        "date_format" : "Format Tanggal",
+        "time_format" : "Format Waktu",
+        "logo_light" : "Logo Light",
+        "logo_dark" : "Logo Dark",
+        "logo_light_sm" : "Logo Light Kecil",
+        "logo_dark_sm" : "Logo Dark Kecil",
+        "favicon" : "Favicon"
+    },
+    "email" : {
+        "host" : "Mail Host",
+        "port" : "Mail Port",
+        "encrypt" : "Mail Encryption",
+        "from_address" : "Mail From Address",
+        "from_name" : "Mail From Name"
+    }
+}

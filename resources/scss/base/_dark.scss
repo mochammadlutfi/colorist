@@ -1,0 +1,35 @@
+
+@use 'sass:color';
+@use "variables" as *;
+
+html.dark {
+    :root {
+
+        // // Element Plus
+        // // Menu
+        // --tw-sidebar-bg:                            theme(backgroundColor.gray.800);
+        // --tw-menu-item-color:                       rgb(144, 151, 167);
+        // --tw-menu-item-active-color:                rgb(200, 205, 220);
+        // --tw-menu-item-active-bg:                   rgba(30, 133, 255, 0.1);
+        // --tw-menu-item-hover-color:                 rgb(200, 205, 220);
+        // --tw-menu-item-hover-bg:                    rgba(30, 133, 255, 0.1);
+    
+        // // Page Header
+        // --tw-header-bg:                           rgb(30, 41, 59);
+        // --tw-header-item-color:                   rgb(131, 145, 162);
+        // --tw-header-item-active-bg:               rgb(70, 79, 91);
+        // --tw-header-item-active-color:            rgb(188, 206, 228);
+        // --tw-header-item-hover-bg:                rgb(70, 79, 91);
+        // --tw-header-item-hover-color:             rgb(188, 206, 228);
+    }
+
+    body {
+        background-color: $body-bg-dark !important;
+        color: $body-color-dark !important;
+    }
+
+    #page-container #page-header{
+        background-color: $body-bg-dark !important;
+        color: $body-color-dark !important;
+    }
+}

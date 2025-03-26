@@ -1,0 +1,53 @@
+@use "../base/variables" as *;
+
+$--colors: (
+  "primary": (
+    "base": $primary,
+  ),
+  "secondary": (
+    "base": $secondary,
+  ),
+  "success": (
+    "base": $success,
+  ),
+  "warning": (
+    "base": $warning,
+  ),
+  "danger": (
+    "base": $danger,
+  ),
+  "error": (
+    "base": $danger,
+  ),
+  "info": (
+    "base": $info,
+  ),
+);
+
+@forward "element-plus/theme-chalk/src/mixins/config.scss" with (
+  $namespace: "el"
+);
+
+// Create a new module that uses and extends Element Plus variables
+@use "element-plus/theme-chalk/src/common/var.scss" as element with (
+    $colors: $--colors,
+    $border-color: (
+        '': #dcdfe6,
+        'light': #e4e7ed,
+        'lighter': #ebeef5,
+        'extra-light': #f2f6fc,
+        'dark': #d4d7de,
+        'darker': #cdd0d6,
+    ),
+    $font-family: (
+        '': $body-font-family
+    ),
+    $box-shadow: (
+        '': 0 1px 2px 0 rgba(0, 0, 0, 0.05) // Tailwind's shadow-sm
+    )
+);
+@use "element-plus/theme-chalk/src/index.scss" as *;
+
+@forward "form";
+@forward "dark";
+@forward "custom-root";

@@ -1,0 +1,48 @@
+$--colors: (
+  "primary": (
+    "base": $primary,
+  ),
+  "secondary": (
+    "base": $secondary,
+  ),
+  "success": (
+    "base": $success,
+  ),
+  "warning": (
+    "base": $warning,
+  ),
+  "danger": (
+    "base": $danger,
+  ),
+  "error": (
+    "base": $danger,
+  ),
+  "info": (
+    "base": $info,
+  ),
+);
+
+@forward "element-plus/theme-chalk/src/mixins/config.scss" with (
+  $namespace: "el"
+);
+// You should use them in scss, because we calculate it by sass.
+// comment next lines to use default color
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+    $colors : $--colors,
+    $border-color : (
+        '': #dcdfe6,
+        'light': #e4e7ed,
+        'lighter': #ebeef5,
+        'extra-light': #f2f6fc,
+        'dark': #d4d7de,
+        'darker': #cdd0d6,
+    ),
+
+    $font-family:
+      (
+        // default family
+        '': $body-font-family
+      ),
+);
+
+@use "element-plus/theme-chalk/src/index.scss" as *;

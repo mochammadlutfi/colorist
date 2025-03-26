@@ -1,0 +1,31 @@
+// Document
+//
+// Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+// Body
+//
+// 1. Remove the margin in all browsers.
+// 2. As a best practice, apply a default `background-color`.
+// 3. Prevent adjustments of font size after orientation changes in iOS.
+// 4. Change the default tap highlight to be completely transparent in iOS.
+
+// scss-docs-start reboot-body-rules
+body {
+    margin: 0;
+    overflow-x: hidden;
+    color: $body-color;
+    background-color: $body-bg;
+    font-family: $body-font-family;
+    -webkit-tap-highlight-color: transparent;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}

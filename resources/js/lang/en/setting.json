@@ -1,0 +1,24 @@
+{
+    "email" : {
+        "host" : "Mail Host",
+        "port" : "Mail Port",
+        "encrypt" : "Mail Encryption",
+        "from_address" : "Mail From Address",
+        "from_name" : "Mail From Name"
+    },
+    "app_name" : "App Name",
+    "company_name" : "Company Name",
+    "company_email" : "Company Email",
+    "company_phone" : "Company Phone",
+    "company_address" : "Company Address",
+    "date_format" : "Date Format",
+    "time_format" : "Time Format",
+    "timezone" : "Timezone",
+    "default_language" : "Default Language",
+    "logo_light" : "Logo Light",
+    "logo_dark" : "Logo Dark",
+    "logo_light_sm" : "Logo Light Small",
+    "logo_dark_sm" : "Logo Dark Small",
+    "favicon" : "Favicon",
+    "theme" : "Theme"
+}
