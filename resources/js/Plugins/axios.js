@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useAuthStore } from '@/stores/auth.js'
+import { useAuthStore } from '@/Stores/auth.js'
 import router from '@/Router'
 
 // Request interceptor
