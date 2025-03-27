@@ -182,7 +182,7 @@ class ProcessUpload implements ShouldQueue
             'product_id' => $product?->id,
             'color_card_id' => $colorCard?->id,
             'series_id' => $series?->id,
-            'filling_volume' => $row[21] ?? null,
+            'filling_volume' => $row[21] ?? 0,
             'unit_name' => $row[22] ?? null,
             'original_type' => $row[23] ?? null,
             'paint_type' => $row[24] ?? null,

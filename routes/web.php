@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Settings\GeneralSetting;
 use App\Models\Locale;
-
+use App\Http\Controllers\TestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +17,9 @@ use App\Models\Locale;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/test', [TestController::class, 'index']);
+Route::get('/test/kirim', [TestController::class, 'sendData']);
 
 Route::get('{path}', function () {
     $data['locales'] = Locale::latest()->get();
