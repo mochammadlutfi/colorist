@@ -274,9 +274,10 @@ const onSubmit = async () => {
                     type: 'success',
                 });
             } catch (error) {
+                console.log(error);
                 formLoading.value = false;
                 ElMessage({
-                    message: t('message.error_server'),
+                    message: error.message ?? t('message.error_server'),
                     type: 'error',
                 });
             }

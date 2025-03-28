@@ -42,7 +42,7 @@ class UploadController extends Controller
         $sort = !empty($request->sort) ? $request->sort : 'id';
         $sortDir = !empty($request->sortDir) ? $request->sortDir : 'DESC';
         $user = auth()->user();
-        // dd($user->outlet()->pluck('id'));
+
         $query = Upload::with(['outlet', 'user'])
         ->when($request->q, function ($q, $search) {
             return $q->orWhere('name', 'LIKE', '%' . $search . '%');
@@ -71,35 +71,46 @@ class UploadController extends Controller
             'outlet_id' => 'required|exists:outlets,id'
         ]);
 
+        // Cek apakah outlet_id sudah ada di hari ini
+        $existingRecord = Upload::where('outlet_id', $request->outlet_id)
+            ->whereDate('created_at', now()->toDateString()) // Cek di hari yang sama
+            ->exists();
+
+        if ($existingRecord) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data untuk outlet ini sudah diunggah hari ini.'
+            ], 422);
+        }
+
         DB::beginTransaction();
-        
         try {
             $user = auth()->user();
             $file = $request->file('file');
             $outlet = Outlet::findOrFail($request->outlet_id);
 
-            // Save the file
-            $path = $request->file('file')->store('csv_uploads');
-            
-            // Create upload record
+            // Simpan file
+            $path = $file->store('csv_uploads');
+
+            // Simpan data upload
             $upload = Upload::create([
                 'user_id' => $user->id,
                 'outlet_id' => $outlet->id,
-                'file_name' => $request->file('file')->getClientOriginalName(),
+                'file_name' => $file->getClientOriginalName(),
                 'file_path' => $path,
                 'status' => 'pending'
             ]);
-            
-            // Dispatch import job
+
+            // Dispatch job untuk proses import
             ProcessUpload::dispatch($upload, $user);
-            
+
             DB::commit();
             return response()->json([
                 'success' => true,
             ], 200);
+
         } catch (\Exception $e) {
             DB::rollBack();
-            
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to process file',
@@ -107,6 +118,7 @@ class UploadController extends Controller
             ], 500);
         }
     }
+
 
     public function send($id)
     {

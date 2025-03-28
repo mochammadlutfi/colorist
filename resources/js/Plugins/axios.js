@@ -30,6 +30,7 @@ axios.interceptors.response.use(function (response) {
             for (let field in err.response.data.result) {
                 error.validation[field] = err.response.data.result[field][0];
             }
+            error.message = err.response.data.message;
             break;
         case 403:
             error.message = "You're not allowed to do that.";
