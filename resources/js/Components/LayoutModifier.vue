@@ -9,7 +9,7 @@
 </template>
   
 <script>
-import { useAppBaseStore } from '@/stores/base';
+import { useAppBaseStore } from '@/Stores/base';
 export default {
     name: 'LayoutModifier',
     props: {
