@@ -15,15 +15,15 @@ class TransaksiResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'ari_no_tinting' => $this->batch_number,
+            'ari_no_tinting' => $this->number,
             'ari_tgl_transaksi' => Carbon::parse($this->color_mixing_time)->format('Y-m-d'),
-            'ari_jam_transaksi' => Carbon::parse($this->ari_jam_transaksi)->format('HH:mm:ss'),
+            'ari_jam_transaksi' => Carbon::parse($this->ari_jam_transaksi)->format('H:m:s'),
             'ari_kode_cabang' => $this->outlet->machine_code,
             'ari_itemcode' => $this->product->code,
             'ari_itemname' => $this->product->name,
-            'ari_base_price' => $this->base_price,
+            'ari_base_price' => ceil($this->base_price + 0.5),
             'ari_qty_trx' => $this->bucket_quantity,
-            'ari_price' => $this->price,
+            'ari_price' => ceil($this->price),
             'ari_kode_formula' => $this->color_card->code,
             'ari_nama_formula' => $this->color_card->name,
             'details' => $this->lines->map(function ($detail) {
@@ -31,9 +31,9 @@ class TransaksiResource extends JsonResource
                     'ari_kode_colorant' => $detail->colorant->code,
                     'ari_nama_colorant' => $detail->colorant->name,
                     'ari_amount_colorant' => $detail->final_used_amount,
-                    'ari_price_colorant' => $detail->price,
+                    'ari_price_colorant' => ceil($detail->price),
                 ];
-            }),
+            })->toArray(),
         ];
     }
 }

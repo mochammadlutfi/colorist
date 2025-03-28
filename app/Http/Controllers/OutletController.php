@@ -29,8 +29,13 @@ class OutletController extends Controller
         $sort = !empty($request->sort) ? $request->sort : 'id';
         $sortDir = !empty($request->sortDir) ? $request->sortDir : 'desc';
 
+        $user = auth()->user();
+
         $query = Outlet::when(!empty($request->search), function ($q, $search) {
             return $q->orWhere('name', 'LIKE', '%' . $search . '%');
+        })
+        ->when($user->hasRole('Sales'), function ($q) use($user) {
+            return $q->whereIn('id', $user->outlet()->pluck('id'));
         })
         ->orderBy($sort, $sortDir);
 

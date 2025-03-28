@@ -1,6 +1,6 @@
-import axios from 'axios'
-import { useAuthStore } from '@/Stores/auth.js'
-import router from '@/Router'
+import axios from 'axios';
+import { useAuthStore } from '@/Stores/auth.js';
+import router from '@/Router';
 
 // Request interceptor
 axios.defaults.baseURL = '/api/';

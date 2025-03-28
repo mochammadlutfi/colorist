@@ -7,7 +7,6 @@
             <div class="mt-auto mb-0">
                 <el-breadcrumb separator="/">
                     <el-breadcrumb-item :to="{ path: '/' }">{{ $t('base.dashboard')}}</el-breadcrumb-item>
-                    <el-breadcrumb-item>{{ $t('base.setting', 2) }}</el-breadcrumb-item>
                     <el-breadcrumb-item>{{ $t('base.upload_data',2) }}</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
@@ -61,11 +60,13 @@
                         <el-table-column prop="file_name" :label="$t('common.file_name')" sortable/>
                         <el-table-column :label="$t('common.record')" align="center">
                             <el-table-column prop="total_records" :label="$t('common.total')" width="100"/>
-                            <el-table-column prop="processed_records" :label="$t('common.processed')" width="100"/>
+                            <el-table-column prop="processed_records" :label="$t('base.uploaded')" width="100"/>
+                            <el-table-column prop="sent_records" :label="$t('base.sent')" width="100"/>
                         </el-table-column>
                         <el-table-column prop="price" :label="$t('common.status')">
                             <template #default="scope">
                                 <el-tag :type="getTypeStatus(scope.row.status)">{{ $t(`base.${scope.row.status}`) }}</el-tag>
+                                <el-button v-if="scope.row.status == 'uploaded'" @click.prevent="onSend(scope.row.id)">Send</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -147,6 +148,8 @@ const getTypeStatus = (status) => {
         return 'danger';
     }else if(status == 'processing'){
         return 'info';
+    }else if(status == 'uploaded'){
+        return 'success';
     }else if(status == 'completed'){
         return 'success';
     }else if(status == 'pending'){
@@ -170,7 +173,6 @@ const fetchData = async ({
     const response = await axios.get("/upload", {
         params: queryParams,
     });
-    params.value.page = response.data.page;
     return response.data;
 };
 
@@ -228,6 +230,21 @@ const onResetForm = () => {
     form.value.outlet_id = null;
     form.value.file = null;
 }
+
+const onSend = async (id) => {
+    axios.post(`/upload/${id}/send`).then(() => {
+        refetch();
+        ElMessage({
+            type: 'success',
+            message: t('message.send_success'),
+        });
+    }).catch(error => {
+        ElMessage({
+            type: 'error',
+            message: t('message.send_cancel'),
+        });
+    });
+};
 
 const onSubmit = async () => {
     if (!formRef.value) return;

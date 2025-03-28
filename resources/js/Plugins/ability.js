@@ -5,7 +5,7 @@ export const ability = new Ability([]);
 
 // Fungsi untuk update ability rules
 export const updateAbility = (permissions) => {
-    console.log('Updating ability with permissions:', permissions);
+    // console.log('Updating ability with permissions:', permissions);
   
     const rules = permissions.map(permission => {
       const [subject, action] = permission.split('.');
@@ -16,6 +16,6 @@ export const updateAbility = (permissions) => {
       };
     });
   
-    console.log('New ability rules:', rules);
+    // console.log('New ability rules:', rules);
     ability.update(rules);
   };

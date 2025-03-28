@@ -9,7 +9,8 @@ class Upload extends Model
     protected $table = 'uploads';
 
     protected $fillable = [
-        'user_id', 'outlet_id', 'file_name', 'file_path', 'status', 'total_records', 'processed_records', 'error_message'
+        'user_id', 'outlet_id', 'file_name', 'file_path', 'status', 
+        'total_records', 'sent_records', 'processed_records', 'error_message'
     ];
 
     public function outlet()

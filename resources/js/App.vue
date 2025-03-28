@@ -16,11 +16,11 @@
   import GuestLayout from '@/Layouts/GuestLayout.vue';
   import { ref, onMounted, computed } from 'vue';
   import { useAppBaseStore } from "@/Stores/base";
-  
   // Store untuk inisialisasi aplikasi
   const appBase = useAppBaseStore();
 
-  
+  const uploadStatus = ref(null);
+
   // Data route dan layout
   const route = useRoute();
   const currentLayout = computed(() => {

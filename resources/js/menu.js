@@ -8,64 +8,75 @@ export default {
             name: 'base.dashboard',
             to: '/dashboard',
             icon: 'fluent:home-24-regular',
-            permission : ""
+            permission : "",
+            role : []
         },
         {
             name: 'Upload Data',
             to: '/upload',
             icon: 'line-md:file-upload',
-            permission : ""
+            permission : "",
+            role : ['Admin', 'Sales']
         },
         {
             name: 'Transaksi',
             to: '/transaction',
             icon: 'iconoir:fill-color-solid',
-            permission : ""
+            permission : "",
+            role : ['Admin', 'Sales']
         },
         {
             name: 'Outlet',
             to: '/outlet',
             icon: 'mynaui:store',
-            permission : ""
+            permission : "",
+            role : ['Admin']
         },
         {
             name: 'base.setting',
             icon: 'solar:settings-linear',
             subActivePaths: '/settings/',
-            sub: [{
+            sub: [
+                {
                     name: 'base.system',
                     to: '/settings/system',
-                    permission : ''
+                    permission : '',
+                    role : ['Admin']
                 },
                 {
                     name: 'base.user',
                     to: '/settings/user',
-                    permission : 'user.view'
+                    permission : '',
+                    role : ['Admin']
                 },
-                {
-                    name: 'base.role_permission',
-                    to: '/settings/permission',
-                    permission : ''
-                },
+                // {
+                //     name: 'base.role_permission',
+                //     to: '/settings/permission',
+                //     permission : ''
+                // },
                 {
                     name: 'Branch',
                     to: '/settings/branch',
-                    permission : ''
+                    permission : '',
+                    role : ['Admin']
                 },
                 {
                     name: 'base.colorant',
                     to: '/settings/colorant',
-                    permission : ''
+                    permission : '',
+                    role : ['Admin']
                 },
                 {
                     name: 'base.product',
                     to: '/settings/product',
-                    permission : ''
+                    permission : '',
+                    role : ['Admin']
                 },
                 {
                     name: 'base.base_paint',
                     to: '/settings/base-paint',
-                    permission : ''
+                    permission : '',
+                    role : ['Admin']
                 },
             ]
         },

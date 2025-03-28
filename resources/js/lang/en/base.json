@@ -26,5 +26,8 @@
     "pending" : "Pending",
     "processing" : "Processing",
     "completed" : "Completed",
-    "failed" : "Failed"
+    "failed" : "Failed",
+    "uploaded" : "Uploaded",
+    "sent" : "Sent",
+    "failed_sent" : "Failed Sent"
 }

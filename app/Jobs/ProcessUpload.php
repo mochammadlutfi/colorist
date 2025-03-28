@@ -21,6 +21,9 @@ use App\Models\{
     BatchColorant
 };
 
+use App\Events\UploadProcessed;
+use App\Jobs\RKMProcess;
+
 class ProcessUpload implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -80,15 +83,19 @@ class ProcessUpload implements ShouldQueue
                 throw new \Exception("Failed to open file: " . $this->upload->file_path);
             }
             
-            $status = empty($errors) ? 'completed' : 'failed';
+            $status = empty($errors) ? 'uploaded' : 'failed';
             
             $this->upload->update([
                 'status' => $status,
                 'total_records' => $total,
                 'processed_records' => $processed,
                 'error_records' => count($errors),
-                'error_message' => empty($errors) ? null : implode("\n", array_slice($errors, 0, 100)) // Batasi pesan error
+                'error_message' => empty($errors) ? null : implode("\n", array_slice($errors, 0, 100))
             ]);
+
+            broadcast(new UploadProcessed($this->upload));
+
+            RKMProcess::dispatch($this->upload);
             
         } catch (\Exception $e) {
             $this->upload->update([
@@ -174,6 +181,7 @@ class ProcessUpload implements ShouldQueue
         $batch = MixingBatch::create([
             'machine_code' => $row[0] ?? null,
             'color_mixing_time' => $colorMixingTime,
+            'type' => $basePaint ? 'sales' : 'maintenance',
             'batch_number' => $row[2] ?? null,
             'bucket_quantity' => $row[3] ?? null,
             'bucket_no' => $row[4] ?? null,
@@ -182,19 +190,20 @@ class ProcessUpload implements ShouldQueue
             'product_id' => $product?->id,
             'color_card_id' => $colorCard?->id,
             'series_id' => $series?->id,
-            'filling_volume' => $row[21] ?? 0,
-            'unit_name' => $row[22] ?? null,
-            'original_type' => $row[23] ?? null,
-            'paint_type' => $row[24] ?? null,
-            'formula_discount' => $row[25] ?? 0,
+            'filling_volume' => !empty($row[21]) ? $row[21] : null,
+            'unit_name' => !empty($row[22]) ? $row[22] : null,
+            'original_type' => !empty($row[23]) ? $row[23] : null,
+            'paint_type' => !empty($row[24]) ? $row[24] : null,
+            'formula_discount' => !empty($row[25]) ? $row[25] : null,
             'formula_create_date' => $formulaCreateDate,
-            'remark' => $row[27] ?? null,
-            'barcode' => $row[28] ?? null,
-            'result' => $row[29] ?? null,
-            'result_message' => $row[30] ?? null,
+            'remark' => !empty($row[27]) ? $row[27] : null,
+            'barcode' => !empty($row[28]) ? $row[28] : null,
+            'result' => !empty($row[29]) ? $row[29] : null,
+            'result_message' => !empty($row[30]) ? $row[30] : null,
             'outlet_id' => $this->upload->outlet_id,
-            'profit' => $row[96] ?? 0,
-            'uploaded_by' => $this->user->id
+            'profit' =>!empty($row[96]) ? $row[96] : null,
+            'uploaded_by' => $this->user->id,
+            'upload_id' => $this->upload->id
         ]);
         
         // Process colorants (up to 7 colorants in the CSV)

@@ -5,7 +5,7 @@
             :class="hasFile ? 'w-3/4' : 'w-full'">
             <span v-if="!modelValue">{{ $t('common.choose_file') }}</span>
             <span v-else class="truncate">{{ displayFileName }}</span>
-            <input type="file" class="!hidden" @change="handleFileChange" :accept="accept"/>
+            <input type="file" name="file" class="!hidden" @change="handleFileChange" :accept="accept"/>
         </label>
 
         <!-- Tombol Hapus -->

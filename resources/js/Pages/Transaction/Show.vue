@@ -11,8 +11,11 @@
         
         <el-card class="!shadow-sm !rounded-lg" body-class="!p-0" v-loading="isLoading">
             <div class="p-4" v-if="data">
-                <h3 class="mb-4 text-lg">{{ data.batch_number }}</h3>
+                <h3 class="mb-4 text-lg">{{ data.number }}</h3>
                 <el-descriptions :column="3" border class="mb-4">
+                    <el-descriptions-item label="Batch Number">
+                        {{ formatDate(data.batch_number) }}
+                    </el-descriptions-item>
                     <el-descriptions-item label="Mixing Date">
                         {{ formatDate(data.color_mixing_time) }}
                     </el-descriptions-item>
@@ -23,22 +26,31 @@
                         {{ data.series.name }}
                     </el-descriptions-item>
                     <el-descriptions-item label="Product">
+                        <span v-if="!data.product"></span>
+                        <span v-else>
                         {{ data.product.code ? `[${ data.product.code}] ` : '' }} {{ data.product.name }}
+                        </span>
                     </el-descriptions-item>
                     <el-descriptions-item label="Base Paint">
+                        <span v-if="!data.base_paint"></span>
+                        <span v-else>
                         {{ data.base_paint.code ? `[${ data.base_paint.code}] ` : '' }} {{ data.base_paint.name }}
+                        </span>
                     </el-descriptions-item>
                     <el-descriptions-item label="Color Card">
+                        <span v-if="!data.color_card"></span>
+                        <span v-else>
                         {{ data.color_card.code ? `[${ data.color_card.code}] ` : '-' }} {{ data.color_card.name }}
+                        </span>
                     </el-descriptions-item>
                     <el-descriptions-item label="Filling Volume">
                         {{ data.filling_volume }} {{ data.unit_name }}
                     </el-descriptions-item>
                     <el-descriptions-item label="Bucket Qty">
-                        {{ data.bucket_quantity }}
+                        {{ data.bucket_quantity ?? '-'}}
                     </el-descriptions-item>
                     <el-descriptions-item label="Bucket No">
-                        {{ data.bucket_no }}
+                        {{ data.bucket_no ?? '-'}}
                     </el-descriptions-item>
                     <el-descriptions-item label="Base Paint Price">
                         {{ formatCurrency(data.base_price) }}

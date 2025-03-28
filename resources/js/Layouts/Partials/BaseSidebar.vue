@@ -32,7 +32,7 @@ import { useAbility } from '@casl/vue';
 
 const { can } = useAbility();
 const authStore = useAuthStore();
-const permissions = computed(() => authStore.permissionData);
+const user = computed(() => authStore.user);
 const menu = computed(() => menuList.main);
 const appBase = useAppBaseStore();
 const { t } = useI18n();
@@ -49,13 +49,14 @@ function filterMenuByPermission(menuNodes) {
     }
 
     // Jika tidak ada permission, tampilkan menu (default behavior)
-    if (!node.permission) {
+    if (!node.role.length) {
       return true;
     }
 
     // Periksa izin menggunakan CASL
-    const [subject, action] = node.permission.split('.');
-    const hasPermission = can(action, subject);
+    // const [subject, action] = node.permission.split('.');
+    // const hasPermission = can(action, subject);
+    const hasPermission = node.role.includes(user.value.role);
     // console.log(`Checking permission for ${node.name}:`,{
     //     permission : node.permission,
     //     action : action,
@@ -67,17 +68,17 @@ function filterMenuByPermission(menuNodes) {
 }
 
 // Gunakan computed untuk navigation
-// const filteredNavigation = computed(() => filterMenuByPermission(menu.value));
+// const navigation = computed(() => filterMenuByPermission(menu.value));
 
 // Pantau perubahan permissions
-watch(permissions, (newPermissions) => {
-  if (newPermissions && newPermissions.length > 0) {
+watch(user, (newUser) => {
+  if (newUser) {
     navigation.value = filterMenuByPermission(menu.value);
   }
 }, { immediate: true });
 
 onMounted(() => {
-  if (permissions.value && permissions.value.length > 0) {
+  if (user.value) {
     navigation.value = filterMenuByPermission(menu.value);
   }
 });

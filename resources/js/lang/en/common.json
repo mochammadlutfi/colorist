@@ -128,5 +128,6 @@
     "record" : "Record",
     "processed" : "Processed",
     "total_records" : "Total Records",
-    "processed_records" : "Processed Records"
+    "processed_records" : "Processed Records",
+    "number" : "Nomor"
 }

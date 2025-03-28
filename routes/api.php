@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// Route::middleware('auth:sanctum')->post('/broadcasting/auth', function (Request $request) {
+//     return Broadcast::auth($request);
+// });
+// Broadcast::routes(['middleware' => ['auth']]);
 
 Route::namespace('App\Http\Controllers')->name('api.')->group(function(){
 
@@ -35,6 +41,10 @@ Route::namespace('App\Http\Controllers')->name('api.')->group(function(){
             Route::post('/password','ProfileController@password')->name('password');
             Route::get('/device', 'ProfileController@device')->name('device');
             Route::post('/device/disconect','ProfileController@deviceDisconnect')->name('device.disconect');
+        });
+
+        Route::prefix('/dashboard')->name('dashboard.')->group(function () {
+            Route::get('/', 'DashboardController@index')->name('index');
         });
 
         Route::prefix('/outlet')->name('outlet.')->group(function () {
@@ -117,25 +127,11 @@ Route::namespace('App\Http\Controllers')->name('api.')->group(function(){
             });
 
         });
-        
-        Route::prefix('/transaksi')->name('transaksi.')->group(function () {
-            Route::get('/', 'TransaksiController@index')->name('index');
-            Route::get('/create', 'TransaksiController@create')->name('create');
-            Route::post('/store','TransaksiController@store')->name('store');
-            Route::get('/data', 'TransaksiController@data')->name('data');
-            Route::get('/{id}', 'TransaksiController@show')->name('show');
-            Route::get('/{id}/edit','TransaksiController@edit')->name('edit');
-            Route::post('/{id}/update','TransaksiController@update')->name('update');
-            Route::delete('/{id}/delete','TransaksiController@destroy')->name('delete');
-        });
-        
             
         Route::prefix('/upload')->name('upload.')->group(function () {
             Route::get('/', 'UploadController@index')->name('index');
             Route::post('/store','UploadController@store')->name('store');
-            Route::get('/{id}', 'UploadController@show')->name('show');
-            Route::put('/{id}/update','UploadController@update')->name('update');
-            Route::delete('/{id}/delete','UploadController@destroy')->name('delete');
+            Route::post('/{id}/send', 'UploadController@send')->name('send');
         });
         
     });

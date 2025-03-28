@@ -83,7 +83,7 @@ class RKMService
     /**
      * Mengirim data ke API dengan token
      */
-    public function sendData($data)
+    public function sendData(array $data)
     {
         $token = $this->login();
 

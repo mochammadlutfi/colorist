@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\RKMService;
 
+use App\Models\Upload;
 use App\Models\MixingBatch;
+use App\Events\UploadProcessed;
 
 use App\Http\Resources\TransaksiResource;
 class TestController extends Controller
@@ -20,21 +22,30 @@ class TestController extends Controller
 
     public function index(Request $request)
     {
-        $page = $request->page ?? 1;
 
-        $response = $this->rkmService->sellOut([
-            'page' => $page
-        ]);
+        // event(new UploadProcessed([
+        //     'user_id' => 1,
+        //     'status' => 'completed'
+        // ]));
 
-        return response()->json($response);
+        // $page = $request->page ?? 1;
+        $upload = Upload::find(50);
+        broadcast(new UploadProcessed($upload));
+        // $response = $this->rkmService->login();
+        // $response = $this->rkmService->sellOut([
+        //     'page' => $page
+        // ]);
+
+        // return response()->json($response);
     }
 
     public function sendData(Request $request)
     {
-
-        $query = MixingBatch::latest()->limit(1)->get();
-
-        $data = TransaksiResource::collection($query);
+        $query = MixingBatch::where('type', 'maintenance')->latest()->get();
+        // dd($query);
+        // dd($query);
+        $data = TransaksiResource::collection($query)->resolve();
+        // dd($data);
 
         $response = $this->rkmService->sendData($data);
 

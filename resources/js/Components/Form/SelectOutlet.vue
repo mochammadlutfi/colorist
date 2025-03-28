@@ -43,12 +43,8 @@ const props = defineProps({
 const params = ref({
     q : ""
 });
-// Define data
-// const dataList = ref([]);
 const value = ref(props.modelValue);
-// const isLoading = ref(false);
 
-// Watch for changes to modelValue
 watch(() => props.modelValue, (newValue) => {
     value.value = newValue;
     refetch();
@@ -61,7 +57,6 @@ const fetchData = async ({
     const response = await axios.get("/outlet", {
         params: queryParams,
     });
-    params.value.page = response.data.page;
     return response.data;
 };
 
@@ -76,10 +71,6 @@ const {
     queryFn: fetchData,
     keepPreviousData: true,
 });
-
-// onMounted(() => {
-//     fetchData();
-// });
 
 // Emit value change
 const selectChange = (newValue) => {

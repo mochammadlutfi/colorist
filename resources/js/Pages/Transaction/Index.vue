@@ -81,6 +81,7 @@
                         scrollbar-always-on
                         @row-click="onClickRow"
                         :data="data.data" @sort-change="sortChange">
+                        <el-table-column prop="number" :label="$t('common.number')" width="220" sortable/>
                         <el-table-column prop="outlet.name" :label="$t('base.outlet')" sortable/>
                         <el-table-column prop="color_mixing_time" :label="$t('common.date')" sortable>
                             <template #default="scope">
@@ -92,11 +93,10 @@
                                 {{ scope.row.batch_number ? scope.row.batch_number : '-' }}
                             </template>
                         </el-table-column>
-                        <el-table-column prop="series.name" :label="$t('base.series')" sortable/>
                         <el-table-column prop="product.name" :label="$t('base.product')" sortable/>
                         <el-table-column prop="price.name" :label="$t('base.price')" sortable>
                             <template #default="scope">
-                                {{ scope.row.price ? scope.row.price : '-' }}
+                                {{ formatCurrency(scope.row.price) }}
                             </template>
                         </el-table-column>
                         <!-- <el-table-column prep="ptkp" :label="$t('employee.ptkp')" sortable width="90">
@@ -148,7 +148,7 @@ import InputFile from '@/Components/Form/InputFile.vue';
 const { t } = useI18n();
 const { can } = useAbility();
 const { setTitle } = useHead();
-const { formatDate, objectToFormData } = useFormatter();
+const { formatDate, formatCurrency, objectToFormData } = useFormatter();
 const router = useRouter();
 
 onMounted(() => {

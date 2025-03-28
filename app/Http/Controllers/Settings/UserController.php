@@ -66,7 +66,8 @@ class UserController extends Controller
             $data->save();
 
             $data->assignRole($request->role);
-            $user->outlet()->sync($request->outlet_ids);
+            $data->outlet()->sync($request->outlet_ids);
+            
         }catch(\QueryException $e){
             DB::rollback();
             return response()->json([

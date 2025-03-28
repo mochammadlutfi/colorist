@@ -29,4 +29,22 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
+//     forceTLS: true,
+//     encrypted: true,
+//     authorizer: (channel, options) => {
+//         return {
+//             authorize: (socketId, callback) => {
+//                 axios.post("/broadcasting/auth", {
+//                     socket_id: socketId,
+//                     channel_name: channel.name,
+//                 })
+//                 .then(response => {
+//                     callback(false, response.data);
+//                 })
+//                 .catch(error => {
+//                     callback(true, error);
+//                 });
+//             }
+//         };
+//     }
 // });

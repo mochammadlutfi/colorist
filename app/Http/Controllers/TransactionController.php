@@ -28,6 +28,7 @@ class TransactionController extends Controller
     {
         $sort = !empty($request->sort) ? $request->sort : 'id';
         $sortDir = !empty($request->sortDir) ? $request->sortDir : 'desc';
+        $user = auth()->user();
 
         $query = MixingBatch::with(['outlet', 'product', 'series'])
         ->when(!empty($request->search), function ($q, $search) {
@@ -40,6 +41,9 @@ class TransactionController extends Controller
             return $q->whereDate('color_mixing_time', '>=', $date[0])
             ->whereDate('color_mixing_time', '<=', $date[1]);
             // return $q->whereBetween(DB::raw('DATE(color_mixing_time)'), $date);
+        })
+        ->when($user->hasRole('Sales'), function ($q) use($user) {
+            return $q->whereIn('outlet_id', $user->outlet()->pluck('id'));
         })
         ->orderBy($sort, $sortDir);
 
