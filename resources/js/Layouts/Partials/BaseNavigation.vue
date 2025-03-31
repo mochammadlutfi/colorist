@@ -40,9 +40,11 @@
 import { ref, computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useAppBaseStore } from '@/Stores/base';
 
 const router = useRouter();
 const route = useRoute();
+const appBase = useAppBaseStore();
 
 const props = defineProps({
     nodes: {
@@ -122,6 +124,7 @@ const linkClicked = (e, submenu) => {
         if (windowW < 992) {
             // Assuming you have a method to commit to the store
             // Example: useStore().commit('sidebar', { mode: 'close' })
+            appBase.sidebar('close');
         }
     }
 };

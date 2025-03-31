@@ -49,7 +49,6 @@ export const useAuthStore = defineStore({
                 id: data.id,
                 name: data.name,
                 email: data.email,
-                employee_id: data.employee_id,
                 image: data.image,
                 image_url: data.image_url,
                 role: data.roles?.[0]?.name || null,

@@ -16,7 +16,7 @@ import { useAppBaseStore } from '@/Stores/base';
 import { useAuthStore } from '@/Stores/auth';
 import { storeToRefs } from "pinia";
 import echo from "@/Plugins/echo";
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch,onMounted } from 'vue';
 import { ElNotification } from "element-plus";
 
 
@@ -32,7 +32,7 @@ const uploadChannel = computed(() => {
 watch(uploadChannel, (channel) => {
     if (!channel) return; // Jika user belum login, hentikan
 
-    console.log(`Mencoba listen pada channel: ${channel}`);
+    // console.log(`Mencoba listen pada channel: ${channel}`);
 
     echo.private(channel)
         .listen(".upload.processed", (data) => {
@@ -62,6 +62,9 @@ watch(uploadChannel, (channel) => {
 });
 const appBase = useAppBaseStore();
 
+onMounted(() => {
+    // appBase.sidebar('close');
+});
 const classContainer = computed(() => ({
     'sidebar-r': appBase.layout.sidebar && !appBase.settings.sidebarLeft,
     'sidebar-mini': appBase.layout.sidebar && appBase.settings.sidebarMini,
@@ -79,4 +82,5 @@ const classContainer = computed(() => ({
     'side-trans-enabled': appBase.settings.sideTransitions,
     'side-scroll': true
 }));
+
 </script>

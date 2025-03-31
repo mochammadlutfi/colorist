@@ -75,10 +75,11 @@ class RKMProcess implements ShouldQueue
                 ]);
                 Log::error("Failed to send data for upload ID: {$this->upload->id}", ['response' => $response]);
             }
+
             broadcast(new UploadProcessed($this->upload));
 
         } catch (\Exception $e) {
-            $this->upload->update(['status' => 'failed', 'error_message' => $e->getMessage()]);
+            $this->upload->update(['status' => 'failed_sent', 'error_message' => $e->getMessage()]);
             Log::error("SendDataToVendor job failed: " . $e->getMessage(), [
                 'upload_id' => $this->upload->id,
                 'trace' => $e->getTraceAsString()

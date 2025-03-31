@@ -61,7 +61,7 @@
                         <el-table-column :label="$t('common.record')" align="center">
                             <el-table-column prop="total_records" :label="$t('common.total')" width="100"/>
                             <el-table-column prop="processed_records" :label="$t('base.uploaded')" width="100"/>
-                            <el-table-column prop="sent_records" :label="$t('base.sent')" width="100"/>
+                            <!-- <el-table-column prop="sent_records" :label="$t('base.sent')" width="100"/> -->
                         </el-table-column>
                         <el-table-column prop="price" :label="$t('common.status')">
                             <template #default="scope">

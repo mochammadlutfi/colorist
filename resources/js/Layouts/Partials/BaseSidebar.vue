@@ -72,9 +72,10 @@ function filterMenuByPermission(menuNodes) {
 
 // Pantau perubahan permissions
 watch(user, (newUser) => {
-  if (newUser) {
-    navigation.value = filterMenuByPermission(menu.value);
-  }
+    console.log(newUser);
+    if (newUser) {
+        navigation.value = filterMenuByPermission(menu.value);
+    }
 }, { immediate: true });
 
 onMounted(() => {

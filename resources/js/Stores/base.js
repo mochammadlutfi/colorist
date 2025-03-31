@@ -136,16 +136,17 @@ export const useAppBaseStore  = defineStore({
         },
     
         // Sets sidebar mini mode (on, off, toggle)
-        sidebarMini (mode) {
-          if (helpers.getWindowWidth() > 991) {
+        sidebarMini(mode) {
+            // console.log('Sidebar Mini :', mode, this.settings.sidebarMini);
+            if (helpers.getWindowWidth() > 991) {
             if (mode === 'on') {
-              this.settings.sidebarMini = true
+                this.settings.sidebarMini = true
             } else if (mode === 'off') {
-              this.settings.sidebarMini = false
+                this.settings.sidebarMini = false
             } else if (mode === 'toggle') {
-              this.settings.sidebarMini = !this.settings.sidebarMini
+                this.settings.sidebarMini = !this.settings.sidebarMini
+                }
             }
-          }
         },
 
         // Sets sidebar position (left, right, toggle)

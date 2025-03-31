@@ -25,7 +25,7 @@ class ProfileController extends Controller
     {
         $id = auth()->user()->id;
 
-        $data = User::where('id', $id)->first();
+        $data = User::with('roles')->where('id', $id)->first();
 
         $data->permissions = $data->getPermissionsViaRoles()->pluck('name');
         

@@ -50,7 +50,7 @@ class AuthController extends Controller
             ], 422);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::with('roles')->where('email', $request->email)->first();
 
         if ($user != null) {
             if (Hash::check($request->password, $user->password)) {
@@ -106,14 +106,15 @@ class AuthController extends Controller
                         'name' => $user->name,
                         'email' => $user->email,
                         'image' => $user->image,
-                        'image_url' => $user->image_url
+                        'image_url' => $user->image_url,
+                        'roles' => $user->roles,
                     ],
                     'access_token' => $accessToken,
                     'token_type' => 'Bearer',
                     'permissions' => $user->getPermissionsViaRoles()->pluck('name'),
                     'message' => $message
                 ];
-
+ 
                 return response()->json([
                     'success' => true,
                     'result' => $data

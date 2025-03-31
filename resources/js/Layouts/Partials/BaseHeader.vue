@@ -1,18 +1,30 @@
 <template>
-    <el-header id="page-header" class="flex items-center px-4 gap-3">
+    <el-header id="page-header" class="flex justify-between items-center px-4 gap-3">
         <!-- Sidenav Menu Toggle Button -->
-        <layout-modifier tag="button" id="button-toggle-menu" action="sidebarMiniToggle" class="hidden md:block nav-link p-2 me-auto">
+        
+        
+        <!-- Tombol ini hanya tampil pada layar ≥ 992px (tablet besar & desktop) -->
+        <layout-modifier 
+            tag="button" 
+            id="button-toggle-menu-desktop" 
+            action="sidebarMiniToggle" 
+            class="hidden lg:flex nav-link p-2 me-auto">
             <span class="flex items-center justify-center h-6 w-6">
                 <Icon icon="fluent:line-horizontal-3-20-filled" class="text-2xl"/>
             </span>
         </layout-modifier>
 
-        
-        <layout-modifier tag="button" id="button-toggle-menu" action="sidebarToggle" class="md:hidden p-2 nav-link">
+        <!-- Tombol ini hanya tampil pada layar < 992px (mobile & tablet kecil) -->
+        <layout-modifier 
+            tag="button" 
+            id="button-toggle-menu-mobile" 
+            action="sidebarToggle" 
+            class="flex lg:hidden p-2 nav-link">
             <span class="flex items-center justify-center h-6 w-6">
                 <Icon icon="fluent:line-horizontal-3-20-filled" class="text-2xl"/>
             </span>
         </layout-modifier>
+
 
         <!-- Language Dropdown Button -->
         <div class="relative">
@@ -35,7 +47,6 @@
         
         <!-- Profile Dropdown Button -->
         <div class="relative">
-
             <el-dropdown trigger="click" v-if="user">
                 <button data-fc-type="dropdown" data-fc-placement="bottom-end" type="button">
                     <div class="flex align-middle">
