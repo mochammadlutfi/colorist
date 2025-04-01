@@ -65,7 +65,7 @@ class UserController extends Controller
             }
             $data->save();
 
-            $data->assignRole($request->role);
+            $data->syncRoles($request->role);
             $data->outlet()->sync($request->outlet_ids);
             
         }catch(\QueryException $e){
@@ -110,7 +110,7 @@ class UserController extends Controller
             $data->email = $request->email;
             $data->save();
 
-            $data->assignRole($request->role);
+            $data->syncRoles($request->role);
 
             $data->outlet()->sync($request->outlet_ids);
 
