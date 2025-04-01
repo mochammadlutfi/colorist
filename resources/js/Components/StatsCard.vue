@@ -9,7 +9,7 @@
             </div>
         </div>
         <div>
-            <Icon :icon="icon" class="w-12 h-12"/>
+            <Icon :icon="icon" class="w-8 h-8 md:w-12 md:h-12"/>
         </div>
     </el-card>
 </template>

@@ -9,22 +9,22 @@
             </div>
         </div>
         <el-row :gutter="20">
-            <el-col :md="6">
+            <el-col :md="6" :span="12" class="mb-4">
                 <stats-card label="Total Sales" icon="line-md:account" v-loading="isLoading">
                     {{ data?.sales ?? 0 }}
                 </stats-card>
             </el-col>
-            <el-col :md="6">
+            <el-col :md="6" :span="12" class="mb-4">
                 <stats-card label="Total Outlet" icon="mynaui:store" v-loading="isLoading">
                     {{ data?.outlet ?? 0 }}
                 </stats-card>
             </el-col>
-            <el-col :md="6">
+            <el-col :md="6" :span="12" class="mb-4">
                 <stats-card label="Total Upload" icon="line-md:file-upload" v-loading="isLoading">
                     {{ data?.uploaded ?? 0 }}
                 </stats-card>
             </el-col>
-            <el-col :md="6">
+            <el-col :md="6" :span="12" class="mb-4">
                 <stats-card label="Failed Upload" icon="line-md:upload-off-outline-loop" v-loading="isLoading">
                     {{ data?.failed_upload ?? 0 }}
                 </stats-card>

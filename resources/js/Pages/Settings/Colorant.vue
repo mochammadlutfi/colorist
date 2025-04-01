@@ -158,7 +158,7 @@ const { t } = useI18n();
 const { setTitle } = useHead(); 
 
 onMounted(() => {
-    setTitle(t('base.department', 2));
+    setTitle(t('base.colorant', 2));
 });
 
 const params = ref({

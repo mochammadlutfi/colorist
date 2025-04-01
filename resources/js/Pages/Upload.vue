@@ -91,7 +91,7 @@
         id="modalForm"
         v-model="formShow"
         :title="formTitle" 
-        class="w-full md-max:w-1/3 rounded-lg"
+        class="w-full md:w-1/3 rounded-lg"
         :close-on-click-modal="false"
         :close-on-press-escape="false">
             <el-form label-position="top" ref="formRef" :model="form" :rules="formRules" @submit.prevent="onSubmit">

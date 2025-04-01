@@ -41,14 +41,19 @@ class TestController extends Controller
 
     public function sendData(Request $request)
     {
-        $query = MixingBatch::where('type', 'maintenance')->latest()->get();
+        $query = MixingBatch::
+        where('type', 'maintenance')
+        ->whereIN('id', [6045, 6026])
+        ->latest()->get();
         // dd($query);
         // dd($query);
         $data = TransaksiResource::collection($query)->resolve();
         // dd($data);
-        $this->rkmService->login();
+        // settings()->forget('rkm_access');
+        // $this->rkmService->login();
+        // dd($test);
         // $response =
-        // $response = $this->rkmService->sendData($data);
+        $response = $this->rkmService->sendData($data);
 
         return response()->json($response);
     }
