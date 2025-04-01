@@ -94,8 +94,6 @@ class ProcessUpload implements ShouldQueue
             ]);
 
             broadcast(new UploadProcessed($this->upload));
-
-            RKMProcess::dispatch($this->upload);
             
         } catch (\Exception $e) {
             $this->upload->update([
