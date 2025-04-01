@@ -18,7 +18,7 @@ class UserController extends Controller
         $sort = !empty($request->sort) ? $request->sort : 'id';
         $sortDir = !empty($request->sortDir) ? $request->sortDir : 'desc';
         
-        $query = User::with('roles')
+        $query = User::with(['roles', 'outlet'])
         ->when($request->q, function($q, $search) {
             return $q->where('name', 'LIKE', '%'.$search.'%')
             ->orWhere('email', 'LIKE', '%'.$search.'%')

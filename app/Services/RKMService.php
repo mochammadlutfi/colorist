@@ -27,11 +27,10 @@ class RKMService
      */
     public function login()
     {
-        $token = settings()->get('rkm_access');
-        if($token){
-            return $token;
-        }
-
+        // $token = settings()->get('rkm_access');
+        // if($token){
+        //     return $token;
+        // }
 
         try {
             $response = $this->client->post('/api/token', [
@@ -42,17 +41,18 @@ class RKMService
             ]);
 
             $data = json_decode($response->getBody(), true);
-
-            if ($token) {
+            dd($data);
+            // if ($token) /{
                 // Simpan token di cache selama 1 jam
-                settings()->set('rkm_refresh', $data['refresh']);
-                settings()->set('rkm_access', $data['access']);
-                return $data['access'];
-            }
+                // settings()->set('rkm_refresh', $data['refresh']);
+                // settings()->set('rkm_access', $data['access']);
+            return $data['access'];
+            // }
 
-            return null;
+            // return null;
              
         } catch (RequestException $e) {
+            dd($e);
             return null;
         }
     }
@@ -86,7 +86,7 @@ class RKMService
     public function sendData(array $data)
     {
         $token = $this->login();
-
+        dd($token);
         try {
             $response = $this->client->post('/api/transcolorant', [
                 'headers' => [

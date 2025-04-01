@@ -46,8 +46,9 @@ class TestController extends Controller
         // dd($query);
         $data = TransaksiResource::collection($query)->resolve();
         // dd($data);
-
-        $response = $this->rkmService->sendData($data);
+        $this->rkmService->login();
+        // $response =
+        // $response = $this->rkmService->sendData($data);
 
         return response()->json($response);
     }

@@ -175,7 +175,7 @@ const onSubmit = async () => {
                     message: t('message.success_input'),
                     type: 'success',
                 });
-                router.replace({ path: '/settings/users' });
+                router.replace({ path: '/settings/user' });
             } catch (error) {
                 console.log(error);
                 isLoading.value = false;

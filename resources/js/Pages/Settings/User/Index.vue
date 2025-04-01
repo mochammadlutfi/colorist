@@ -49,9 +49,16 @@
                         :data="data.data" v-loading="loading">
                         <el-table-column prop="name" :label="$t('common.name')"/>
                         <el-table-column prop="email" :label="$t('common.email')"/>
-                        <el-table-column prop="phone" :label="$t('common.phone')">
+                        <el-table-column prop="outlet" :label="$t('base.outlet')">
                             <template #default="scope">
-                                {{ scope.row.phone ?? '-' }}
+                                <!-- {{ scope.row.outlet ?? '-' }} -->
+                                  <!-- <el- -->
+                                <div v-if="scope.row.outlet">
+                                    <span v-for="(d,i) in scope.row.outlet" :key="i">
+                                        {{ d.name }}
+                                    </span>
+                                </div>
+                                <span v-else>-</span>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('base.role')">

@@ -14,7 +14,7 @@
                 <h3 class="mb-4 text-lg">{{ data.number }}</h3>
                 <el-descriptions :column="3" border class="mb-4">
                     <el-descriptions-item label="Batch Number">
-                        {{ formatDate(data.batch_number) }}
+                        {{ data.batch_number }}
                     </el-descriptions-item>
                     <el-descriptions-item label="Mixing Date">
                         {{ formatDate(data.color_mixing_time) }}
