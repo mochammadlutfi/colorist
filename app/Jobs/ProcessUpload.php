@@ -208,8 +208,8 @@ class ProcessUpload implements ShouldQueue
         $colorant_total = 0;
         for ($i = 1; $i <= 7; $i++) {
             // Hitung offset untuk colorant ke-i
-            $offset = 32 + ($i - 1) * 5;
-        
+            $offset = 33 + ($i - 1) * 5;
+            // dd($offset);
             $colorantCode = $row[$offset] ?? null;
             if (empty($colorantCode)) {
                 continue;
