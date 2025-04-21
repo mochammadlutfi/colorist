@@ -1,25 +1,25 @@
 <template>
-    <div id="page-sidebar">
-        <div class="sidebar-content justify-end">
-            <router-link to="/dashboard" class="logo">
-                <!-- Light Brand Logo -->
-                <div class="logo-light">
-                    <img :src="app.logo_dark" class="logo-lg h-10 smini-hidden" alt="Light logo">
-                    <img :src="app.logo_dark_sm" class="logo-sm smini-visible" alt="Small logo">
-                </div>
-
-                <!-- Dark Brand Logo -->
-                <div class="logo-dark">
-                    <img :src="app.logo_light" class="logo-lg h-10 smini-hidden" alt="Dark logo">
-                    <img :src="app.logo_light_sm" class="logo-sm smini-visible" alt="Small logo">
-                </div>
-            </router-link>
-
-            <el-scrollbar class="md:h-[550px] p-4">
-                <base-navigation :nodes="navigation"></base-navigation>
-            </el-scrollbar>
+  <div id="page-sidebar">
+    <div class="sidebar-content justify-end">
+      <router-link to="/dashboard" class="logo">
+        <!-- Light Brand Logo -->
+        <div class="logo-light">
+          <img :src="app.logo_dark" class="logo-lg h-10 smini-hidden" alt="Light logo">
+          <img :src="app.logo_dark_sm" class="logo-sm smini-visible" alt="Small logo">
         </div>
+
+        <!-- Dark Brand Logo -->
+        <div class="logo-dark">
+          <img :src="app.logo_light" class="logo-lg h-10 smini-hidden" alt="Dark logo">
+          <img :src="app.logo_light_sm" class="logo-sm smini-visible" alt="Small logo">
+        </div>
+      </router-link>
+
+      <el-scrollbar class="md:h-[550px] p-4">
+        <base-navigation :nodes="navigation"></base-navigation>
+      </el-scrollbar>
     </div>
+  </div>
 </template>
 <script setup>
 import menuList from '@/menu.js';
@@ -72,10 +72,10 @@ function filterMenuByPermission(menuNodes) {
 
 // Pantau perubahan permissions
 watch(user, (newUser) => {
-    console.log(newUser);
-    if (newUser) {
-        navigation.value = filterMenuByPermission(menu.value);
-    }
+  console.log(newUser);
+  if (newUser) {
+    navigation.value = filterMenuByPermission(menu.value);
+  }
 }, { immediate: true });
 
 onMounted(() => {

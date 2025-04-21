@@ -132,6 +132,8 @@ Route::namespace('App\Http\Controllers')->name('api.')->group(function(){
             Route::get('/', 'UploadController@index')->name('index');
             Route::post('/store','UploadController@store')->name('store');
             Route::post('/{id}/send', 'UploadController@send')->name('send');
+            Route::get('/{id}/download', 'UploadController@download')->name('download');
+            Route::delete('/{id}/delete', 'UploadController@delete')->name('delete');
         });
         
     });

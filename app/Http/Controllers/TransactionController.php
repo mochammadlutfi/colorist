@@ -42,7 +42,7 @@ class TransactionController extends Controller
             ->whereDate('color_mixing_time', '<=', $date[1]);
             // return $q->whereBetween(DB::raw('DATE(color_mixing_time)'), $date);
         })
-        ->when($user->hasRole('Sales'), function ($q) use($user) {
+        ->when($user->hasAnyRole(['Sales', 'MOS']), function ($q) use($user) {
             return $q->whereIn('outlet_id', $user->outlet()->pluck('id'));
         })
         ->orderBy($sort, $sortDir);

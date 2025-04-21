@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Jobs\ProcessUpload;
 use App\Jobs\RKMProcess;
-
+use Storage;
 use App\Models\{
     Outlet,
     Upload,
@@ -47,7 +47,7 @@ class UploadController extends Controller
         ->when($request->q, function ($q, $search) {
             return $q->orWhere('name', 'LIKE', '%' . $search . '%');
         })
-        ->when($user->hasRole('Sales'), function ($q) use($user) {
+        ->when($user->hasAnyRole(['Sales', 'MOS']), function ($q) use($user) {
             return $q->whereIn('outlet_id', $user->outlet()->pluck('id'))
             ->where('user_id', $user->id);
         })
@@ -91,7 +91,6 @@ class UploadController extends Controller
 
             // Simpan file
             $path = $file->store('csv_uploads');
-
             // Simpan data upload
             $upload = Upload::create([
                 'user_id' => $user->id,
@@ -129,6 +128,52 @@ class UploadController extends Controller
 
         return response()->json([
             'success' => true,
+        ], 200);
+    }
+
+    
+    public function download($id)
+    {
+        $upload = Upload::where('id', $id)->first();
+
+        if (!$upload) {
+            return response()->json([
+                'success' => false,
+                'message' => 'File not found'
+            ], 404);
+        }
+
+        $path = Storage::path($upload->file_path);
+
+        if (!file_exists($path)) {
+            abort(503, 'File not found.');
+        }
+
+        return response()->download($path);
+    }
+
+    public function delete($id)
+    {
+        $upload = Upload::where('id', $id)->first();
+
+        if (!$upload) {
+            return response()->json([
+                'success' => false,
+                'message' => 'File not found'
+            ], 404);
+        }
+
+        $path = Storage::path($upload->file_path);
+
+        if (file_exists($path)) {
+            unlink($path);
+        }
+
+        $upload->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'File deleted successfully'
         ], 200);
     }
     

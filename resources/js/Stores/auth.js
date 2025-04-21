@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { updateAbility } from '@/Plugins/ability';
+import { updateAbility } from "@/Plugins/ability";
 
 export const useAuthStore = defineStore({
     id: "auth",
@@ -15,7 +15,7 @@ export const useAuthStore = defineStore({
     getters: {
         isLoggedIn: (state) => Boolean(state.token),
         userData: (state) => state.user,
-        permissionData : (state) => state.permissions,
+        permissionData: (state) => state.permissions,
     },
 
     actions: {
@@ -24,16 +24,15 @@ export const useAuthStore = defineStore({
                 const { data } = await axios.get("/profile");
                 this.updateUser(data);
                 this.setPermissions(data.permissions);
-
             } catch (error) {
-                if(error.status == 401){
+                if (error.status == 401) {
                     this.user = null;
                     this.token = null;
                     this.permissions = [];
                     this.$reset();
                     Cookies.remove("token");
                     delete axios.defaults.headers.common["Authorization"];
-                    window.location.href = '/login';
+                    window.location.href = "/login";
                 }
                 console.error("Failed to fetch user data:", error);
             }
@@ -63,14 +62,16 @@ export const useAuthStore = defineStore({
 
         async login({ email, password }) {
             try {
-                const { data } = await axios.post("/login", { email, password });
-                
+                const { data } = await axios.post("/login", {
+                    email,
+                    password,
+                });
+
                 this.updateUser(data.result.user);
                 this.setPermissions(data.result.permissions);
                 this.updateToken(data.result.access_token);
-                
             } catch (error) {
-                console.log('Login Error', error);
+                console.log("Login Error", error);
                 throw error;
             }
         },
@@ -97,9 +98,9 @@ export const useAuthStore = defineStore({
             this.$reset();
             Cookies.remove("token");
             delete axios.defaults.headers.common["Authorization"];
-            
+
             // Gunakan window.location untuk navigasi setelah logout
-            window.location.href = '/login';
+            window.location.href = "/login";
         },
     },
 });
