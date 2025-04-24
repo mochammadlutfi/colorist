@@ -25,6 +25,7 @@
                 </el-select>
 
                 <div class="flex items-center gap-2">
+                    <select-product @change="refetch()" v-model="params.product_id" placeholder="Filter by Product"/>
                     <el-input
                         v-model="params.q"
                         @input="doSearch"
@@ -58,11 +59,16 @@
                                 {{ formatCurrency(scope.row.price) }}
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('common.last_updated')">
+                        <el-table-column :label="$t('common.size')">
+                            <template #default="scope">
+                                {{ scope.row.size }} {{ scope.row.unit }}
+                            </template>
+                        </el-table-column>
+                        <!-- <el-table-column :label="$t('common.last_updated')">
                             <template #default="scope">
                                 {{ formatDate(scope.row.updated_at) }}
                             </template>
-                        </el-table-column>
+                        </el-table-column> -->
                         <el-table-column :label="$t('common.action')" align="center" width="150">
                             <template #default="scope">
                                 <el-dropdown popper-class="dropdown-action" trigger="click" >
@@ -110,6 +116,10 @@
         :close-on-click-modal="false"
         :close-on-press-escape="false">
             <el-form label-position="top" ref="formRef" :model="form" :rules="formRules" @submit.prevent="onSubmit">
+                
+                <el-form-item :label="$t('base.product')" prop="product_id">
+                    <select-product v-model="form.product_id"/>
+                </el-form-item>
                 <el-form-item :label="$t('common.name')" prop="name">
                     <el-input v-model="form.name"/>
                 </el-form-item>
@@ -123,6 +133,18 @@
                         :parser="(value) => value.replace(/^Rp\s+|(\,)/gi, '')"
                     />
                 </el-form-item>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <el-form-item :label="$t('common.size')" prop="size">
+                            <el-input v-model="form.size"/>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item :label="$t('common.unit')" prop="unit">
+                            <el-input v-model="form.unit"/>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
                 <div class="text-end">
                     <el-button @click.prevent="onResetForm">
                         {{ $t('common.cancel') }}
@@ -147,6 +169,7 @@ import SkeletonTable from '@/Components/SkeletonTable.vue';
 import { useQuery } from '@tanstack/vue-query';
 import { useFormatter } from '@/Composable/useFormatter';
 import { useHead } from '@/Composable/useBase.js';
+import SelectProduct from '@/Components/Form/SelectProduct.vue';
 
 const { formatDate, formatCurrency } = useFormatter();
 const { t } = useI18n();
@@ -158,6 +181,7 @@ onMounted(() => {
 const params = ref({
     page: 1,
     limit: 25,
+    product_id : null,
     q : ""
 });
 const selected = ref([]);
@@ -207,8 +231,12 @@ const formShow = ref(false);
 const formTitle = ref('');
 const form = ref({
     id : null,
+    product_id : null,
     name : null,
-    short_name : null,
+    code : null,
+    price : null,
+    size : null,
+    unit : null,
 });
 const formRules = ref({
     code: [
@@ -230,6 +258,9 @@ const openModal = () => {
     form.value.name = null;
     form.value.code = null;
     form.value.price = null;
+    form.value.size = null;
+    form.value.unit = null;
+    form.value.product_id = null;
 }
 
 const onEdit = (data) => {
@@ -239,6 +270,9 @@ const onEdit = (data) => {
     form.value.name = data.name;
     form.value.code = data.code;
     form.value.price = data.price;
+    form.value.size = data.size;
+    form.value.unit = data.unit;
+    form.value.product_id = data.product_id;
 }
 
 const onResetForm = () => {
@@ -247,6 +281,9 @@ const onResetForm = () => {
     form.value.name = null;
     form.value.code = null;
     form.value.price = null;
+    form.value.size = null;
+    form.value.unit = null;
+    form.value.product_id = null;
 }
 
 const onSubmit = async () => {

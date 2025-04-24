@@ -30,8 +30,13 @@ class BasePaintController extends Controller
         $sortDir = !empty($request->sortDir) ? $request->sortDir : 'desc';
 
         $query = BasePaint::with(['product'])
-        ->when(!empty($request->search), function ($q, $search) {
-            return $q->orWhere('name', 'LIKE', '%' . $search . '%');
+        ->when($request->q, function ($q, $search) {
+            return $q->where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere('code', 'LIKE', '%' . $search . '%')
+            ->orWhere('price', 'LIKE', '%' . $search . '%');
+        })
+        ->when($request->product_id, function ($q, $product_id) {
+            return $q->orWhere('product_id', $product_id);
         })
         ->orderBy($sort, $sortDir);
 
@@ -53,8 +58,9 @@ class BasePaintController extends Controller
             $data = new BasePaint();
             $data->code = $request->code;
             $data->name = $request->name;
-            $data->rgb = $request->rgb;
+            $data->product_id = $request->product_id;
             $data->price = $request->price;
+            $data->size = $request->size;
             $data->unit = $request->unit;
             $data->save();
 
@@ -79,7 +85,12 @@ class BasePaintController extends Controller
         DB::beginTransaction();
         try{
             $data = BasePaint::where('id', $id)->first();
+            $data->code = $request->code;
             $data->name = $request->name;
+            $data->product_id = $request->product_id;
+            $data->price = $request->price;
+            $data->size = $request->size;
+            $data->unit = $request->unit;
             $data->save();
 
         }catch(\QueryException $e){

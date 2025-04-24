@@ -129,5 +129,7 @@
     "processed" : "Processed",
     "total_records" : "Total Records",
     "processed_records" : "Processed Records",
-    "number" : "Nomor"
+    "number" : "Nomor",
+    "size" : "Size",
+    "unit": "Unit"
 }

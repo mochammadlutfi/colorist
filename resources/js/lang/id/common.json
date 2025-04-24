@@ -120,6 +120,17 @@
     "choose_file": "Pilih File",
     "last_access" : "Akses Terakhir",
     "device" : "Perangkat | Perangkat",
-    "devices_connected" : "Perangkat Terhubung"
+    "devices_connected" : "Perangkat Terhubung",
+    "price" : "Harga | Harga-Harga",
+    "uploaded_by" : "Diunggah Oleh",
+    "file_name" : "Nama File",
+    "total" : "Total",
+    "record" : "Catatan",
+    "processed" : "Diproses",
+    "total_records" : "Total Catatan",
+    "processed_records" : "Catatan yang Diproses",
+    "number" : "Nomor",
+    "size" : "Ukuran",
+    "unit"  : "Satuan"
     
 }

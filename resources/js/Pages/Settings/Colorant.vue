@@ -150,7 +150,6 @@ import { useI18n } from 'vue-i18n';
 import SkeletonTable from '@/Components/SkeletonTable.vue';
 import { useQuery } from '@tanstack/vue-query';
 import { useFormatter } from '@/Composable/useFormatter';
-import SelectDepartment from '@/Components/Form/SelectDepartment.vue';
 import { useHead } from '@/Composable/useBase.js';
 
 const { formatDate } = useFormatter();

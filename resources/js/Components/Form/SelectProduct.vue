@@ -53,7 +53,7 @@ const fetchData = async ({
     queryKey
 }) => {
     const [_key, queryParams] = queryKey;
-    const response = await axios.get("/settings/grade", {
+    const response = await axios.get("/settings/product", {
         params: queryParams,
     });
     params.value.page = response.data.page;
@@ -67,7 +67,7 @@ const {
     error,
     refetch
 } = useQuery({
-    queryKey: ['selectGrade', params.value], // Query key unik
+    queryKey: ['selectProduct', params.value], // Query key unik
     queryFn: fetchData,
     keepPreviousData: true,
 });
